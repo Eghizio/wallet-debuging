@@ -23,8 +23,8 @@ export const getTransactions = createAsyncThunk(
   "categories/getAllTransactions",
   async ({ token }, { rejectWithValue }) => {
     try {
-      console.log({ token, transAxios: axios });
-      const {data} = await axios.get(`/transactions`, {
+      // console.log({ token, transAxios: axios });
+      const { data } = await axios.get(`/transactions`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -75,6 +75,18 @@ export const getTransactionsCategories = createAsyncThunk(
     }
   }
 );
+
+export const getTransactionsCategoriesTotal = createAsyncThunk(
+  "transactions/categories/totals",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get("/transactions/categories/totals");
+      return data;
+    } catch(error) {
+      console.log({ error });
+      return rejectWithValue(error);
+    }
+});
 
 export const getTransactionsSummary = createAsyncThunk(
   "transactions/getTransactionsSummary",

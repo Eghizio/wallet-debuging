@@ -16,7 +16,7 @@ export default function DiagramTab() {
   console.log(expenses);
 
   let statisticsList = useSelector((state) => state.transactions.summary);
-  console.log(statisticsList);
+  console.log({ statisticsList });
 
   // // if (!transactionsSummary) transactionsSummary = [];
   // // useEffect(() => {

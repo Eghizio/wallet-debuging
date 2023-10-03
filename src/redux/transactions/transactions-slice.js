@@ -5,6 +5,7 @@ import {
   getTransactions,
   editTransaction,
   getTransactionsCategories,
+  getTransactionsCategoriesTotal,
   getTransactionsSummary,
 } from "./transactions-operations";
 
@@ -100,6 +101,23 @@ const transactionsSlice = createSlice({
       .addCase(getTransactionsCategories.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+      .addCase(getTransactionsCategoriesTotal.fulfilled, (state, action) => {
+        const { totalIncome, totalExpenses, difference, totals } = action.payload;
+
+        state.isLoading = false;
+        state.incomeSummary = totalIncome;
+        state.expenseSummary = totalExpenses;
+        state.balance = difference;
+        state.summary = totals;
+      })
+      .addCase(getTransactionsCategoriesTotal.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getTransactionsCategoriesTotal.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       })
       .addCase(getTransactionsSummary.pending, (state) => {
         state.isLoading = true;
